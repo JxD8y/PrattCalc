@@ -92,7 +92,7 @@ namespace Imeasy {
 			pdDx.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 			pdDx.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 			pdDx.SampleDesc.Count = 1;
-			pdDx.SampleDesc.Quality = 0; //NUMERIC UP DOWN ?!
+			pdDx.SampleDesc.Quality = 0;
 			pdDx.OutputWindow = hw;
 			pdDx.Windowed = TRUE;
 			pdDx.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
@@ -134,7 +134,7 @@ namespace Imeasy {
 			wcx.lpszClassName = title.c_str();
 			wcx.lpfnWndProc = WndProc;
 			RegisterClassA(&wcx);
-			HWND hw = CreateWindowExA(0, wcx.lpszClassName, title.c_str(), WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, width, height, NULL, NULL, wcx.hInstance, NULL);
+			HWND hw = CreateWindowExA(0, wcx.lpszClassName, title.c_str(), WS_OVERLAPPED | WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, width, height, NULL, NULL, wcx.hInstance, NULL);
 			return hw;
 		}
 
@@ -149,7 +149,7 @@ namespace Imeasy {
 		{
 			throw exception("failed to create dx dev"); 
 		}
-		HWND hw = CreateDxWindow("imGWindow",height,width);
+		HWND hw = CreateDxWindow(title.c_str(), height, width);
 		if (hw == NULL)
 		{
 			throw exception("failed to create window");
@@ -167,9 +167,8 @@ namespace Imeasy {
 
 		ImGuiIO& io = ImGui::GetIO();
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-
+		
 		ImGui::StyleColorsDark();
-
 		ImGui_ImplWin32_Init(hw);
 		ImGui_ImplDX11_Init(Imeasy::pdxDev, Imeasy::pdxDevCtx);
 		bool run = true;
