@@ -15,7 +15,6 @@ void HideConsoleWindow() {
 
 struct TreeNode {
     int value;
-
     TreeNode* left;
     TreeNode* right;
     ImVec2 position;
@@ -63,6 +62,7 @@ void MainWindow() {
     RenderBinaryTree(&tn);
     ImGui::End();
 }
+
 int main() {
 	HideConsoleWindow();
 	Imeasy::AddRenderingObject(MainWindow);
