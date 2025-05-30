@@ -9,4 +9,4 @@ add_library(imgui STATIC
     imgui_tables.cpp
     imgui_widgets.cpp
 )
-target_include_directories(imgui PUBLIC ../../include/imgui)
+target_include_directories(imgui PUBLIC ../../include/ImGui)

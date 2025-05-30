@@ -2,6 +2,7 @@
 #include "Imgui_Impl_easy.h"
 #include <string>
 #include <math.h>
+#include "PrattParser/Lexer.h"
 
 #pragma comment(lib,"d3d11.lib")
 #pragma comment(lib,"d3dcompiler.lib")
@@ -42,11 +43,20 @@ void DrawBinaryTree(ImDrawList* draw_list, TreeNode* node, ImVec2 position, floa
 void RenderBinaryTree(TreeNode* root) {
     ImDrawList* draw_list = ImGui::GetWindowDrawList();
     ImVec2 startPosition = ImVec2(240, 150);
+    if (root == NULL || (root->left == NULL && root->right == NULL)) {
+        draw_list->AddText(ImVec2(startPosition.x - 60 , startPosition.y), IM_COL32(255, 0, 0, 255), "No valid EXPR");
+        return;
+    }
     DrawBinaryTree(draw_list, root, startPosition, 70, 70);
 }
 
 static char buffer[256] = {};
-TreeNode tn, tr, tl,tll,tlr,trr,trrr;
+static char b_cmp[256] = {};
+
+TreeNode tn;
+void OnExpTextChanged(char* text) {
+        
+}
 void MainWindow() {
 	ImGui::Begin("PrattCalc",NULL,ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar |ImGuiWindowFlags_NoMove);
 	ImVec2 size(500, 400);
@@ -55,22 +65,21 @@ void MainWindow() {
 	ImGui::Text("Expression: ");
     float av_x = ImGui::GetContentRegionAvail().x;
     ImGui::SetNextItemWidth(av_x - 20);
+    strcpy_s(b_cmp, sizeof(b_cmp), buffer);
 	ImGui::InputText(" ", buffer, sizeof(buffer));
-    tn.value = 10;
-    tr.value = 0;
-    tl.value = 199;
-    trr.right = &trrr;
-    tl.left = &tll;
-    tl.right = &tlr;
-    tr.right = &trr;
-    tn.right = &tr;
-    tn.left = &tl;
-    ImGui::Text("Rendered prett binary tree: ");
+
+    if (strcmp(b_cmp, buffer) && strcmp(buffer,""))
+        OnExpTextChanged(buffer);
+
+    ImGui::Text("Calculated answer: ");
+    ImGui::Text("Rendered binary tree: ");
     RenderBinaryTree(&tn);
     ImGui::End();
 }
 
 int main() {
+    Lexer l("33 + 64.5 * 5 + 2 - .8");
+
 	HideConsoleWindow();
 	Imeasy::AddRenderingObject(MainWindow);
 	Imeasy::StartRendering("WIN",400,500);
