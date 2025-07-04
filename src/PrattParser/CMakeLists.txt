@@ -1,4 +1,4 @@
 add_library(PrattLib STATIC 
-			Lexer.cpp)
+			Lexer.cpp Expression.cpp)
 
 target_include_directories(PrattLib PUBLIC ../../include/PrattParser)
