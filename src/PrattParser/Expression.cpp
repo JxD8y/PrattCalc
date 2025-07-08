@@ -1,22 +1,25 @@
 #include "Expression.h"
 
-Expression::Expression(Token& lhs, Token& rhs, OpType op) {
-	this->lhs_tk = &lhs;
-	this->rhs_tk = &rhs;
-	this->type = op;
+Expression::Expression(double value) {
+	this->SetValue(value);
 }
-Expression::Expression(Expression& lhs, Token& rhs, OpType op) {
-	this->lhs_expr = &lhs;
-	this->rhs_tk = &rhs;
-	this->type = op;
+Expression::Expression(Expression* lhs, Expression* rhs, OpType op) {
+	this->pLhs = lhs;
+	this->pRhs = rhs;
 }
-Expression::Expression(Token& lhs, Expression& rhs, OpType op) {
-	this->lhs_tk = &lhs;
-	this->rhs_expr = &rhs;
-	this->type = op;
+
+void Expression::SetType(OpType type) {
+	this->type = type;
+	this->value = 0;
 }
-Expression::Expression(Expression& lhs, Expression& rhs, OpType op) {
-	this->lhs_expr = &lhs;
-	this->rhs_expr = &rhs;
-	this->type = op;
+OpType Expression::GetType() {
+	return this->type;
+}
+
+void Expression::SetValue(double value) {
+	this->value = value;
+	this->type = OpType::OPEND;
+}
+double Expression::GetValue() {
+	return this->value;
 }

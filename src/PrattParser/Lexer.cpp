@@ -1,5 +1,8 @@
 #include "Lexer.h"
 #include <iostream>
+#include <algorithm>
+using namespace std;
+
 Lexer::Lexer(string expression) {
 	if (expression.length() < 3)
 		throw std::runtime_error("Cannot tokenize and parse this expr");
@@ -32,9 +35,21 @@ Lexer::Lexer(string expression) {
 				s = expression[++i];
 			}
 			tokens.push_back(Token(TYPE::Atom, std::stod(sub)));
-
+			
 			if (i == expression.length())
-				tokens.push_back(Token(TYPE::Op, OpType::OPEND));//could be better
+				tokens.push_back(Token(TYPE::Op, OpType::OPEND));
 		}
 	}
+	std::reverse(this->tokens.begin(), this->tokens.end());
+}
+//Pop the token from stack storage
+Token Lexer::Next() {
+	auto tk = this->tokens.back();
+	this->tokens.pop_back();
+	return tk;
+}
+//Look at the next Token
+Token Lexer::Peek() {
+	auto tk = this->tokens.back();
+	return tk;
 }

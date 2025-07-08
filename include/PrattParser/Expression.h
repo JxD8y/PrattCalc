@@ -5,13 +5,17 @@ using namespace std;
 
 class Expression {
 public:
-	Expression(Token& lhs,Token& rhs,OpType op);
-	Expression(Expression& lhs,Token& rhs,OpType op);
-	Expression(Token& lhs,Expression& rhs,OpType op);
-	Expression(Expression& lhs,Expression& rhs,OpType op);
-	Token* lhs_tk = NULL;
-	Token* rhs_tk = NULL;
-	Expression* lhs_expr = NULL;
-	Expression* rhs_expr = NULL;
+	Expression(Expression* lhs,Expression* rhs,OpType op);
+	Expression(double value);
+	Expression() {}
+	Expression* pLhs = NULL;
+	Expression* pRhs = NULL;
+
+	void SetType(OpType);
+	OpType GetType();
+	void SetValue(double value);
+	double GetValue();
+private:
 	OpType type = OpType::OPEND;
+	double value = 0;
 };
