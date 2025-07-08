@@ -167,7 +167,6 @@ namespace Imeasy {
 
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-		
 		ImGui::StyleColorsDark();
 		ImGui_ImplWin32_Init(hw);
 		ImGui_ImplDX11_Init(Imeasy::pdxDev, Imeasy::pdxDevCtx);
