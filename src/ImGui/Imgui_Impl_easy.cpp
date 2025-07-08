@@ -6,7 +6,8 @@ using namespace std;
 
 namespace Imeasy {
 	bool TerminateOnClose = true;
-
+	int width = 0;
+	int height = 0;
 	void PrintErrorMessage(HRESULT hr) {
 		LPVOID lpMsgBuf;
 		DWORD dw = FormatMessage(
@@ -39,8 +40,8 @@ namespace Imeasy {
 			if (msg == WM_SIZE) {
 				if (wp == SIZE_MINIMIZED)
 					return 0;
-				Imeasy::rw = (UINT)LOWORD(lp);
-				Imeasy::rh = (UINT)HIWORD(lp);
+				Imeasy::width = Imeasy::rw = (UINT)LOWORD(lp);
+				Imeasy::height = Imeasy::rh = (UINT)HIWORD(lp);
 				return 0;
 			}
 			if (msg == WM_CLOSE)
@@ -167,7 +168,11 @@ namespace Imeasy {
 
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-		ImGui::StyleColorsDark();
+		ImGuiStyle& style = ImGui::GetStyle();
+		style.FontScaleMain = 1;
+		style.FontSizeBase = 25;
+
+		ImGui::StyleColorsDark(&style);
 		ImGui_ImplWin32_Init(hw);
 		ImGui_ImplDX11_Init(Imeasy::pdxDev, Imeasy::pdxDevCtx);
 		bool run = true;

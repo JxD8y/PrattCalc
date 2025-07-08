@@ -13,6 +13,8 @@ typedef void (*WindowPart)();
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 namespace Imeasy {
+	extern int width;
+	extern int height;
 	void PrintErrorMessage(HRESULT hr);
 	void StartRendering(string title, UINT height, UINT width);
 	void AddRenderingObject(WindowPart wp);
