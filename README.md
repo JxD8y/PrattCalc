@@ -15,3 +15,14 @@ I used [this article](https://matklad.github.io/2020/04/13/simple-but-powerful-p
 ![3](https://github.com/user-attachments/assets/4b5b986f-86dd-43a9-a95d-6c95256afb67)
 ![3](https://github.com/user-attachments/assets/3335849f-fab2-46cc-bb15-2d030898a87a)
 ![3](https://github.com/user-attachments/assets/abf4bb1f-f47b-4091-9b30-3149f8355b94)
+
+# Notes
+I configured the ImGui in a single source file to use Dx11 which make the whole software be bound to windows OS.
+so to build it all you need to do is either clone the repo and used visual studio or use : 
+```
+cmake .
+cmake --build .
+```
+
+# Contact
+You can send me message in telegram: @KVMSwitch
