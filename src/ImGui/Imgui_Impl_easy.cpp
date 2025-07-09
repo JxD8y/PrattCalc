@@ -130,6 +130,7 @@ namespace Imeasy {
 		}
 
 		HWND CreateDxWindow(string title,UINT height,UINT width) {
+			SetProcessDpiAwareness(PROCESS_PER_MONITOR_DPI_AWARE);
 			WNDCLASSA wcx = {};
 			wcx.hInstance = GetModuleHandleA(NULL);
 			wcx.lpszClassName = title.c_str();

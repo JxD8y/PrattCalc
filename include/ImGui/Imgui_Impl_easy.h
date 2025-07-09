@@ -7,6 +7,8 @@
 #include <assert.h>
 #include <iomanip>
 #include <vector>
+#include <ShellScalingApi.h>
+
 using namespace std;
 
 typedef void (*WindowPart)();
