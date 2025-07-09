@@ -43,9 +43,9 @@ void RenderMainWindow() {
 
     ImGui::PushFont(NULL, 35);
     ImGui::Text("Calculated answer: %.2f",answer);
-    ImGui::Text("Rendered binary tree: ");
+    ImGui::Text("Rendered tree: ");
     ImGui::PopFont();
-    
+
     RenderBinaryTree(expr);
     ImGui::End();
 }

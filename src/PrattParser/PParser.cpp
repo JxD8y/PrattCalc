@@ -2,20 +2,16 @@
 
 int getBindingPW(OpType op) {
 	switch (op) {
-	case OpType::Add:
-		return 1;
-	case OpType::Sub:
-		return 1;
-	case OpType::Mul:
-		return 2;
-	case OpType::Div:
-		return 2;
-
-	case OpType::LPRN: 
-		return 2;
-	case OpType::RPRN:
-		return 2;
-
+		case OpType::Add:
+			return 1;
+		case OpType::Sub:
+			return 1;
+		case OpType::Mul:
+			return 2;
+		case OpType::Div:
+			return 2;
+		default:
+			return 0;
 	}
 }
 
@@ -27,16 +23,26 @@ Expression* PParser::Parse() {
 }
 Expression* PParser::parse_expr(int min_pw) {
 	Token left = this->lx.Next();
-	if (left.type == TYPE::Op)
-		throw std::runtime_error("Infix operator at wrong pos.");
-	Expression* l = new Expression(left.value);
+	Expression* l = NULL;
 
+	if (left.type == TYPE::Op && left.opType != OpType::LPRN)
+		throw std::runtime_error("Infix operator at wrong pos.");
+
+	if (left.type == TYPE::Op && left.opType == OpType::LPRN) {
+		l = this->parse_expr(0);
+
+		if(this->lx.Next().opType != OpType::RPRN){
+			throw std::runtime_error("Parentheses not closed");
+		}
+	}
+	else
+		l = new Expression(left.value);
 	while (1) {
 		Token op = this->lx.Peek();
 		if (op.type != TYPE::Op)
 			throw std::runtime_error("no Infix operator at pos.");
 
-		if (op.opType == OpType::OPEND)
+		if (op.opType == OpType::OPEND || op.opType == OpType::RPRN)
 			break;
 
 		int pw = getBindingPW(op.opType);
