@@ -1,4 +1,4 @@
-add_executable(PCalc main.cpp)
+add_executable(PCalc main.cpp "MainWindow.cpp" "BinaryTree.cpp")
 add_subdirectory("ImGui")
 add_subdirectory("PrattParser")
 

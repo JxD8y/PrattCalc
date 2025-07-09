@@ -6,6 +6,7 @@ Expression::Expression(double value) {
 Expression::Expression(Expression* lhs, Expression* rhs, OpType op) {
 	this->pLhs = lhs;
 	this->pRhs = rhs;
+	this->SetType(op);
 }
 
 void Expression::SetType(OpType type) {
