@@ -10,6 +10,7 @@ using namespace std;
 class Lexer {
 public:
 	Lexer(string expression);
+	Lexer() : Lexer("1 + 1") {}
 	Token Next();
 	Token Peek();
 private:

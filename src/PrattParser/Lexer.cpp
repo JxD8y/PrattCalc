@@ -6,14 +6,11 @@ using namespace std;
 Lexer::Lexer(string expression) {
 	if (expression.length() < 3)
 		throw std::runtime_error("Cannot tokenize and parse this expr");
-	
+
 	for (int i = 0; i < expression.length(); i++) {
 		char c = expression[i];
 		if (c == ' ')
 			continue;
-
-		if (i == expression.length() - 1)
-			tokens.push_back(Token(TYPE::Op,OpType::OPEND));
 
 		if (c == '+')
 			tokens.push_back(Token(TYPE::Op, OpType::Add));
@@ -34,12 +31,14 @@ Lexer::Lexer(string expression) {
 				sub.push_back(s);
 				s = expression[++i];
 			}
+			i--;
 			tokens.push_back(Token(TYPE::Atom, std::stod(sub)));
-			
+
 			if (i == expression.length())
 				tokens.push_back(Token(TYPE::Op, OpType::OPEND));
 		}
 	}
+	tokens.push_back(Token(TYPE::Op, OpType::OPEND));
 	std::reverse(this->tokens.begin(), this->tokens.end());
 }
 //Pop the token from stack storage
