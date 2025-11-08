@@ -26,3 +26,5 @@ cmake --build .
 
 # Contact
 You can send me message in telegram: @KVMSwitch
+or email me: 
+javadejadidi@gmail.com
